@@ -11,7 +11,12 @@ use App\Models\Category;
 
 class SkillController extends Controller
 {
-    
+    // show skills
+    public function index(){
+        $skills = Skill::orderBy('created_at','DESC')->get();
+        return $skills;
+    }
+
     // save skill
     public function store(Request $request){
         $newSkill = new Skill();
@@ -38,11 +43,21 @@ class SkillController extends Controller
         }
     }
 
-    // affect skill to groupe
+    // affect skill to category
     public function affect(Request $request,$id){
         $existingSkill = Skill::find($id);
         if ($existingSkill){
             $existingSkill->categories()->attach(Category::where('name', $request->category['name'])->get());
         }
     }
+
+    // delete skill from category 
+    // affect skill to groupe
+    public function detach(Request $request,$id){
+        $existingSkill = Skill::find($id);
+        if ($existingSkill){
+            $existingSkill->categories()->detach(Category::where('name', $request->category['name'])->get());
+        }
+    }
+
 }

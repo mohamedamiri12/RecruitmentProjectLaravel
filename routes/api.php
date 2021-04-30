@@ -36,6 +36,7 @@ Route::get('administrator/contracts/{contract}/reject', 'App\Http\Controllers\Ad
 Route::resource('administrator/contracts', App\Http\Controllers\Administrator\ContractController::class);
 
 Route::get('administrator/skills/{skill}/affect', 'App\Http\Controllers\Administrator\skillController@affect');
+Route::get('administrator/skills/{skill}/detach', 'App\Http\Controllers\Administrator\skillController@detach');
 Route::resource('administrator/skills', App\Http\Controllers\Administrator\SkillController::class);
 
 Route::resource('administrator/categories', App\Http\Controllers\Administrator\CategoryController::class);

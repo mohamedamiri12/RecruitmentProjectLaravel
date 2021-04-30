@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     // show categories
     public function index(){
-        $categories = Category::orderBy('created_at','DESC')->get();
+        $categories = Category::with("skills")->orderBy('created_at','DESC')->get();
         return $categories;
     }
 
