@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Administrator;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Client;
@@ -9,6 +10,10 @@ use App\Models\Client;
 
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     // show clients
     public function index(){
         $clients = Client::orderBy('created_at','DESC')->get();

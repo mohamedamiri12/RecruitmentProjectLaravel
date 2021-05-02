@@ -11,6 +11,10 @@ use Illuminate\Http\UploadedFile;
 
 class AdministratorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     // show admins
     public function index(){
         $administrators = Administrator::orderBy('created_at','DESC')->get();

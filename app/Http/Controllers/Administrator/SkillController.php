@@ -11,6 +11,10 @@ use App\Models\Category;
 
 class SkillController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     // show skills
     public function index(){
         $skills = Skill::orderBy('created_at','DESC')->get();

@@ -39,6 +39,8 @@ Route::get('administrator/skills/{skill}/affect', 'App\Http\Controllers\Administ
 Route::get('administrator/skills/{skill}/detach', 'App\Http\Controllers\Administrator\skillController@detach');
 Route::resource('administrator/skills', App\Http\Controllers\Administrator\SkillController::class);
 
+Route::post('administrator/categories/{category}/addSkill', 'App\Http\Controllers\Administrator\CategoryController@addSkill');
+Route::post('administrator/categories/{category}/deleteSkill', 'App\Http\Controllers\Administrator\CategoryController@deleteSkill');
 Route::resource('administrator/categories', App\Http\Controllers\Administrator\CategoryController::class);
 
 // Client Routes

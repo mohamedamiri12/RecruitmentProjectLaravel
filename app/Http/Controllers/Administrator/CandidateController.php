@@ -9,6 +9,10 @@ use App\Models\Candidate;
 
 class CandidateController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     // show candidates
     public function index(){
     $candidates = Candidate::orderBy('created_at','DESC')->get();
