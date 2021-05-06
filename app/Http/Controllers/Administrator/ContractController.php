@@ -8,6 +8,10 @@ use App\Models\Contract;
 
 class ContractController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     // show contracts
     public function index(){
         $contracts = Contract::orderBy('created_at','DESC')->get();

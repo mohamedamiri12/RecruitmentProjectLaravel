@@ -9,6 +9,10 @@ use App\Models\Mission;
 
 class MissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     // show missions
     public function index(){
         $missions = Mission::orderBy('created_at','DESC')->get();

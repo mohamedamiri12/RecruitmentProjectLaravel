@@ -11,6 +11,10 @@ use App\Models\Category;
 
 class SkillController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     // show skills
     public function index(){
         $skills = Skill::orderBy('created_at','DESC')->get();
@@ -28,8 +32,8 @@ class SkillController extends Controller
     // modify a skill
     public function update(Request $request,$id){
         $existingSkill = Skill::find($id);
-        if ($existingSkill){
-            $existingSkill->name=$request->skill['name'];
+        if ($request->has('name')){
+            $existingSkill->name=$request->name;
             $existingSkill->save();
             return $existingSkill;
         }
