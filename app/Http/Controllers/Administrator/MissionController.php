@@ -15,7 +15,7 @@ class MissionController extends Controller
     }
     // show missions
     public function index(){
-        $missions = Mission::orderBy('created_at','DESC')->get();
+        $missions = Mission::with("client")->with("candidate")->get();
         return $missions;
     }
 
