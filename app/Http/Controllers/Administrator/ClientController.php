@@ -16,7 +16,7 @@ class ClientController extends Controller
     }
     // show clients
     public function index(){
-        $clients = Client::orderBy('created_at','DESC')->get();
+        $clients = Client::with('missions')->with("contracts")->orderBy('created_at','DESC')->get();
         return $clients;
     }
 

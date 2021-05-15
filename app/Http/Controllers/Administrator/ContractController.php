@@ -14,7 +14,7 @@ class ContractController extends Controller
     }
     // show contracts
     public function index(){
-        $contracts = Contract::orderBy('created_at','DESC')->get();
+        $contracts = Contract::with("client")->with("candidate")->get();
         return $contracts;
     }
 
@@ -33,5 +33,13 @@ class ContractController extends Controller
                 $existingContract->status="refusé";
                 $existingContract->save();
             }
+    }
+
+    // delete a client
+    public function destroy($id){
+        $existingContract = Contract::find($id);
+        if ($existingContract){
+            $existingContract->delete();
+        }
     }
 }

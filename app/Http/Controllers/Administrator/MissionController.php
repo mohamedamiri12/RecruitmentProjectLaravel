@@ -15,7 +15,7 @@ class MissionController extends Controller
     }
     // show missions
     public function index(){
-        $missions = Mission::orderBy('created_at','DESC')->get();
+        $missions = Mission::with("client")->with("candidate")->get();
         return $missions;
     }
 
@@ -35,5 +35,12 @@ class MissionController extends Controller
                 $existingMission->status="refusé";
                 $existingMission->save();
             }
+    }
+    // delete a client
+    public function destroy($id){
+        $existingMission = Mission::find($id);
+        if ($existingMission){
+            $existingMission->delete();
+        }
     }
 }
