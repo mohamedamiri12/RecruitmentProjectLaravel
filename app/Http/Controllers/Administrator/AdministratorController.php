@@ -10,15 +10,22 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\UploadedFile;
 
 class AdministratorController extends Controller
-{
+{   /*
     public function __construct()
     {
         $this->middleware('auth:api');
-    }
+    } 
+    */
     // show admins
     public function index(){
         $administrators = Administrator::orderBy('created_at','DESC')->get();
         return $administrators;
+    }
+
+    // count admins number
+    public function countAdmins(){
+        $administrators = Administrator::orderBy('created_at','DESC')->get();
+        return count($administrators);
     }
 
     // add admin form

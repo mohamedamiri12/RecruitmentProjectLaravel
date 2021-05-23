@@ -3,6 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Administrator;
+use App\Http\Controllers\Client;
+use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\MissionController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,6 +22,7 @@ use App\Http\Controllers\Administrator;
 // Admin Routes
 
 Route::get('administrators/{administrator}/suspend', 'App\Http\Controllers\Administrator\AdministratorController@suspend');
+Route::get('administrators/count', 'App\Http\Controllers\Administrator\AdministratorController@countAdmins');
 Route::resource('administrators', App\Http\Controllers\Administrator\AdministratorController::class);
 
 Route::get('administrator/clients/{client}/suspend', 'App\Http\Controllers\Administrator\ClientController@suspend');
@@ -43,22 +49,6 @@ Route::post('administrator/categories/{category}/addSkill', 'App\Http\Controller
 Route::post('administrator/categories/{category}/deleteSkill', 'App\Http\Controllers\Administrator\CategoryController@deleteSkill');
 Route::resource('administrator/categories', App\Http\Controllers\Administrator\CategoryController::class);
 
-// Client Routes
-Route::resource('clients', App\Http\Controllers\Client\ClientController::class);
-
-Route::get('client/candidates/search', 'App\Http\Controllers\Client\CandidateController@search');
-Route::resource('client/candidates', App\Http\Controllers\Client\CandidateController::class);
-
-Route::resource('client/missions', App\Http\Controllers\Client\MissionController::class);
-Route::resource('client/contracts', App\Http\Controllers\Client\ContractController::class);
-
-// Candidate Routes
-
-Route::get('candidates/search', 'App\Http\Controllers\Candidate\CandidateController@search');
-Route::resource('candidates', App\Http\Controllers\Candidate\CandidateController::class);
-
-Route::resource('candidate/missions', App\Http\Controllers\Candidate\MissionController::class);
-
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -66,7 +56,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-// login Routes
+// login Administrator Routes
 
 Route::group([
 
@@ -82,3 +72,30 @@ Route::group([
     Route::post('me', 'App\Http\Controllers\AuthController@me');
 
 });
+
+// login Client Routes
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('client/login', 'App\Http\Controllers\client\ClientAuthController@login');
+    Route::post('client/register', 'App\Http\Controllers\client\ClientAuthController@register');
+    Route::post('client/logout', 'App\Http\Controllers\client\ClientAuthController@logout');
+    Route::post('client/refresh', 'App\Http\Controllers\client\ClientAuthController@refresh');
+    Route::post('client/me', 'App\Http\Controllers\client\ClientAuthController@me');
+
+});
+
+// Visitor Routes
+    //Get Specific Candidate
+Route::get('/candidates/{id}', 'App\Http\Controllers\CandidateController@getCandidate');
+Route::resource('/candidates', App\Http\Controllers\CandidateController::class);
+Route::resource('/clients', App\Http\Controllers\ClientController::class);
+
+    // Route for missions (create, ...)
+Route::resource('/missions', App\Http\Controllers\MissionController::class);   
+

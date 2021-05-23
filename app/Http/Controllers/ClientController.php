@@ -1,27 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Administrator;
+namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Client;
 
-
 class ClientController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
-    }
-    // show clients
-    public function index(){
-<<<<<<< HEAD
-        $clients = Client::with('missions')->with("contracts")->orderBy('created_at','DESC')->get();
-=======
-        $clients = Client::with('missions')->orderBy('created_at','DESC')->get();
->>>>>>> f88141596081057e611fbda7ad949e2ab2d269cb
-        return $clients;
+        $this->middleware('auth:client');
     }
 
     // modify a client
@@ -70,21 +60,5 @@ class ClientController extends Controller
         }
     }
 
-    // suspend a client
-    public function suspend($id){
-        $existingClient = Client::find($id);
-            if ($existingClient){
-                $existingClient->is_suspended=1;
-                $existingClient->save();
-            }
-    }
-
-    // search a client
-    public function search(Request $request){
-        $searchedText = $request->input('searchfield'); // searchfield name of input in view
-        $clients = Client::where('last-name', 'LIKE', '%'.$searchedText.'%', 'OR','firts-name','LIKE', '%'.$searchedText.'%')->get();
-        return $clients;
-    }
-
-
 }
+
