@@ -21,6 +21,12 @@ class AdministratorController extends Controller
         return $administrators;
     }
 
+    // count admins number
+    public function countAdmins(){
+        $administrators = Administrator::orderBy('created_at','DESC')->get();
+        return count($administrators);
+    }
+
     // add admin form
     public function create(){
         

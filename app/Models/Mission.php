@@ -12,6 +12,7 @@ class Mission extends Model
     use SoftDeletes;
     
     protected $dates = ['deleted_at'];
+    protected $fillable = ['mission_file'];
     
     public function candidate()
     {

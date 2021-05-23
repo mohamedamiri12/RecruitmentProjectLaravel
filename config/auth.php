@@ -51,6 +51,12 @@ return [
             'driver' => 'session',
             'provider' => 'administrators',
         ],
+
+        'client' => [
+            'driver' => 'jwt',
+            'provider' => 'clients',
+            'hash' => false,
+        ],
     ],
 
     /*
